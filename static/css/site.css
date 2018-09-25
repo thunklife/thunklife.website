@@ -1,0 +1,378 @@
+@font-face {
+  font-family: 'open_sansregular';
+  src: url("../fonts/opensans-regular-webfont.eot");
+  src: url("../fonts/opensans-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans-regular-webfont.woff") format("woff"), url("../fonts/opensans-regular-webfont.ttf") format("truetype"), url("../fonts/opensans-regular-webfont.svg#opensansregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'open_sanslight';
+  src: url("../fonts/opensans-light-webfont.eot");
+  src: url("../fonts/opensans-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans-light-webfont.woff") format("woff"), url("../fonts/opensans-light-webfont.ttf") format("truetype"), url("../fonts/opensans-light-webfont.svg#open_sanslight") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'open_sansextrabold';
+  src: url("../fonts/opensans-extrabold-webfont.eot");
+  src: url("../fonts/opensans-extrabold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans-extrabold-webfont.woff") format("woff"), url("../fonts/opensans-extrabold-webfont.ttf") format("truetype"), url("../fonts/opensans-extrabold-webfont.svg#open_sansextrabold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'open_sanssemibold';
+  src: url("../fonts/opensans-semibold-webfont.eot");
+  src: url("../fonts/opensans-semibold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/opensans-semibold-webfont.woff") format("woff"), url("../fonts/opensans-semibold-webfont.ttf") format("truetype"), url("../fonts/opensans-semibold-webfont.svg#open_sanssemibold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/*variables*/
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html, body {
+  height: 100%; }
+
+body {
+  font-family: open_sansregular }
+
+header {
+  overflow: hidden;
+  padding-top: 20px; 
+  padding-bottom: 40px;
+}
+
+header small {
+  font-size: .65rem;
+  opacity: .25;
+  position: relative;
+  top: -7px;
+  left: 7px; }
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: #a0a5ae; }
+nav .links, 
+nav .brand {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem; }
+ nav .links {
+   flex-direction: row;
+ } 
+  nav .links a {
+    padding: 5px 15px;
+    color: #a0a5ae;
+    font-size: 1.5rem; 
+    display: flex;
+    flex-direction: column;
+    font-size: .95rem;
+    text-align: center;
+    }
+    nav .links a:hover {
+      text-decoration: none;
+      color: #e74c3c; }
+    nav .links i:hover {
+      text-decoration: none;
+    }
+
+header img {
+  float: left; }
+header .container {
+  overflow: hidden; }
+
+a {
+  color: #e74c3c;
+  text-decoration: none; }
+  a :hover {
+    text-decoration: underline; }
+
+ul, ol {
+  margin: 0;
+  padding: 0 0 20px 40px; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  padding: 0 0 10px 0;
+  line-height: 2.33rem; }
+
+h1 {
+  font-family: open_sansextrabold;
+  margin-top: 0; }
+
+h2 {
+  font-family: open_sanssemibold; }
+
+h3 {
+  font-family: open_sansregular;
+  font-style: italic; }
+
+blockquote {
+  padding: 10px;
+  margin: 20px 0 20px 20px;
+  border-left: 1px solid #bdc3c7;
+  color: #7f8c8d; }
+  blockquote p {
+    margin: 0; }
+
+p code {
+  padding: 2px 5px;
+  background: #ecf0f1;
+  color: #7f8c8d;
+  border: 1px solid #bdc3c7;
+  border-radius: 3px;
+  font-size: .8rem; }
+
+table {
+  width: 50%;
+  margin: 20px 0 20px 25%;
+}
+table td, table th{
+  padding: 5px;
+  text-align: center;
+}
+
+table thead{
+  border-bottom: 1px solid #131313;
+}
+
+footer {
+  font-family: open_sanslight;
+  font-size: 15px;
+  padding: 20px 0;
+  text-align: center; }
+
+.me{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-img {
+  background: url('/static/images/golden-gate-lrg.jpg');
+  background-size: 1500px;
+  width: 1440px;
+  height: 350px;
+  background-position: 50%;
+}
+
+.head-photo-container {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 5px solid #e74c3c;
+  border-radius: 50%;
+  position: relative;
+  top: -90px;
+  display: flex;
+}
+
+.head-photo {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+
+.about {
+  position: relative;
+  font-family: open_sanslight;
+  font-size: 32px;
+  text-align: center;
+  top: -75px;
+}
+
+.footer-logo {
+  text-align: center;
+  opacity: .3;
+  display: block;
+  margin: 0 auto;
+  width: 40px; }
+
+.post-list {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.post-title {
+  margin-bottom: 40px; }
+
+.container {
+  max-width: 800px;
+  padding: 0 40px;
+  margin: 0 auto; }
+
+.main {
+  padding: 65px 0px 20px 0px;
+  background-color: #fefefe;
+  color: #131313; }
+
+.summary {
+  overflow: hidden;
+  border-bottom: 1px solid #bdc3c7;
+  padding: 20px 20px 0px 20px; }
+  .summary:hover {
+    background-color: #F1F2F3; }
+  .summary .header {
+    overflow: hidden;
+    padding: 10px 0px; }
+    .summary .header .title {
+      float: left;
+      font-style: normal;
+      padding-bottom: 0px; }
+    .summary .header .date {
+      float: right;
+      color: #bdc3c7;
+      font-size: .8rem; }
+
+p {
+  margin: 0px 0px 20px 0;
+  line-height: 1.65rem; }
+
+li {
+  line-height: 1.65rem;
+  padding: 5px; }
+
+.other-posts h2 {
+  border-radius: 5px 5px 0 0;
+  margin: 0px 0px 20px 0px;
+  padding: 10px 20px; }
+.other-posts ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+.other-posts li {
+  line-height: 2rem;
+  padding: 0 10px;
+  margin-bottom: 10px; }
+
+li .recent-post {
+  display: block;
+  padding: 0 10px; }
+
+.post-nav {
+  text-align: center; }
+  .post-nav a {
+    padding: 0 40px; }
+    .post-nav a :active {
+      text-decoration: none; }
+
+.highlight {
+  margin-bottom: 20px;
+  background-color: #3c3c3c;
+  color: #fff;
+  font-size: .8rem;
+  overflow-y: auto;
+  border-radius: 5px; }
+  .highlight pre {
+    overflow-y: auto;
+    white-space: pre;
+    padding: 10px; }
+
+.haskell body {
+  background-color: #67a7cd; }
+.haskell header {
+  background: url("../images/haskellBG.png"); }
+.haskell nav a {
+  color: white;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8); }
+  .haskell nav a :hover {
+    background: transparent; }
+.haskell a {
+  color: #67a7cd; }
+.haskell ul {
+  padding-bottom: 0px; }
+.haskell footer {
+  color: white; }
+  .haskell footer a {
+    color: #315281; }
+  .haskell footer .license {
+    text-align: left; }
+.haskell .highlight {
+  margin: 20px 0; }
+.haskell .about {
+  border-top: 1px solid #67a7cd;
+  margin: 20px 0 0 0;
+  padding: 10px 0 0 0; }
+
+.with-contents .container {
+  max-width: 1000px;
+  overflow: hidden; }
+.with-contents .content {
+  width: 71%;
+  float: left;
+  margin-right: 2%;
+  padding: 0 2%; }
+.with-contents .table-of-contents {
+  position: fixed;
+  left: 66%;
+  width: 18%; }
+  .with-contents .table-of-contents ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; }
+
+.cv h1{
+  margin-bottom: 0;
+  padding-bottom: 5px;
+}
+
+.cv section{
+  margin: 20px 0;
+  padding-top: 20px;
+  border-top: 1px solid #BDC3C7;
+}
+
+.cv .meta{
+  position: absolute;
+  display: inline-block;
+}
+
+.cv .meta p{
+  margin: 0;
+}
+
+.cv .description{
+  position: relative;
+  display: inline-block;
+  width: 65%;
+  left: 33%;
+}
+
+.cv .bingo{
+  font-size:.8rem;
+}
+
+.talks img {
+  width: 100%;
+  border-radius: 4px;
+  border: 5px solid white;
+  box-shadow: 0 0 2px rgba(0,0,0,.5);
+}
+
+.talks .meta p {
+  font-size: 12px;
+  color: #BDC3C7;
+  margin: 0;
+  line-height: auto;
+}
+
+.talks article{
+  margin-bottom: 10px;
+  border-bottom: 1px solid #BDC3C7;
+}
+
+.talks article:last-of-type{
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.talks a:hover img{
+  border-color: #e74c3c;
+}
