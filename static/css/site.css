@@ -198,6 +198,11 @@ footer {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
+  text-align: center;
+}
+
+.post-list .fa-star {
+  margin-right: 10px
 }
 
 .post-title {
