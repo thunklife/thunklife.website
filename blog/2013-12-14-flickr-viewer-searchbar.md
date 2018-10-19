@@ -22,7 +22,7 @@ Before you get going, download Foundation (which will also come along with norma
 
 While we're at it, let's get rid of everything that was in public/index.html and put in something a little more meaningful.
 
-{% highlight html linenos %}
+~~~ html
 <!Doctype html>
 <html>
   <head>
@@ -44,25 +44,25 @@ While we're at it, let's get rid of everything that was in public/index.html and
     <div class="row" id="search-container"></div>
   </body>
 </html>
-{% endhighlight %}
+~~~
 
-The HTML above sets up a couple of things: a <code>top-bar</code> and a <code>search-container</code>. The <code>search-container</code> is the interesting bit. This is where our Search Bar will be rendered. So let's build it.
+The HTML above sets up a couple of things: a ```top-bar``` and a ```search-container```. The ```search-container``` is the interesting bit. This is where our Search Bar will be rendered. So let's build it.
 
 ##The First Feature
 My perference, whenever possible, is to break a project up by feature. All of the source files for a single feature exist in that directory. I find it is a nice way to organize files that are concerned with the same thing. 
 
-{% highlight bash %}
+~~~ bash
 mkdir searchbar && cd searchbar/
-{% endhighlight %}
+~~~
 
 Let's start with the view, shall we?
-{% highlight bash %}
+~~~ bash
 touch index.hbs
-{% endhighlight %}
+~~~
 
 Notice the file extension? We'll be writing all of our views in Handlebars.
 
-{% highlight HTML linenos %}
+~~~ html
 <!-- index.hbs -->
 <div class="small-12 columns">
   <h1>Find Photos</h1>
@@ -75,9 +75,9 @@ Notice the file extension? We'll be writing all of our views in Handlebars.
 	  </div>
 	</div>
 </div>
-{% endhighlight %}
+~~~
 
-Pretty simple, no? We've got your typical boiler-plate HTML as you would expect when using a CSS framework. Then we've got an input and we're setting it's value to the <code>term</code> property.
+Pretty simple, no? We've got your typical boiler-plate HTML as you would expect when using a CSS framework. Then we've got an input and we're setting it's value to the ```term``` property.
 
 Boring, right? Let's get to the good stuff. But first, a word on modules.
 
@@ -90,21 +90,21 @@ Just because this project doesn't use a framework doesn't mean we're going to bu
 jQuery is great, and jQuery is not a framework, so yeah we could bring it in. Personally, I'm trying to remove my dependencies on jQuery. I prefer to use small, specialized components and jQuery is not that. Personally, I primarily use jQuery for DOM manipulation, and modern browsers have made the standard DOM APIs pretty easy to use. I also use it for XHR, but we'll talk about that in a minute.
 
 ##The Flickr API
-I almost forgot, you'll need to get a [Flickr API key](https://secure.flickr.com/services/apps/create/apply/). We're going to be using <code>flickr.tags.getClusterPhotos</code> method, so take a minute to get [acquainted](https://secure.flickr.com/services/api/flickr.tags.getClusterPhotos.html).
+I almost forgot, you'll need to get a [Flickr API key](https://secure.flickr.com/services/apps/create/apply/). We're going to be using ```flickr.tags.getClusterPhotos``` method, so take a minute to get [acquainted](https://secure.flickr.com/services/api/flickr.tags.getClusterPhotos.html).
 
 ##The Search Bar
 Let's write some JS. First, we need a file.
-{% highlight bash %}
+~~~ bash
 touch index.js
-{% endhighlight %}
+~~~
 
 Now to bring a few modules. This component is going to be responsible for making a request to the FlickrAPI when a button is clicked and emitting an event with the results of the call. For XHR I chose to use [reqwest](https://npmjs.org/package/reqwest). For event delegation of DOM events, [dom-delegate](https://npmjs.org/package/dom-delegate). For event emitting, well, nodejs has that built in.
 
-{% highlight bash %}
+~~~ bash
 npm install reqwest dom-delegate --save
-{% endhighlight %}
+~~~
 
-{% highlight javascript linenos %}
+~~~ javascript
 var Delegate = require('dom-delegate'),
     EventEmitter = require('events').EventEmitter,
     inherit = require('util').inherits
@@ -139,8 +139,7 @@ SearchBar.prototype.search = function(){
     if(this.term){
             url = baseUrl +
             	  "&method=flickr.tags.getClusterPhotos&tag=" + 
-            	  this.term + 
-            	  urlSuffix;        
+            	  this.term + urlSuffix;
             reqwest({
                     url: url,
                     method: 'get',
@@ -157,19 +156,19 @@ SearchBar.prototype.search = function(){
 };
 
 module.exports = SearchBar;
-{% endhighlight %}
+~~~
 
 So what's going on here? First we need to bring in all of our dependencies. In addition to the modules already discussed, we've got the nodejs EventEmitter, the standard nodejs inherit method, and our Handlebars template; followed by our Flickr API info.
 
-Next we have our SearchBar function. It takes in its containing element, sets up some internal state (term) and registers some handlers using its delegate. If you're not familiar with <code>EventEmitter.call(this)</code>, we're calling the EventEmitter function, but supplying the context of <code>this</code>. Which means our SearchBar gets all of the EventEmitter properties. To make sure we get all of the prototype methods, we use the inherit function. Lastly, we add our own prototype methods; one to update the current term, and one to perform a search then emit the results.
+Next we have our SearchBar function. It takes in its containing element, sets up some internal state (term) and registers some handlers using its delegate. If you're not familiar with ```EventEmitter.call(this)```, we're calling the EventEmitter function, but supplying the context of ```this```. Which means our SearchBar gets all of the EventEmitter properties. To make sure we get all of the prototype methods, we use the inherit function. Lastly, we add our own prototype methods; one to update the current term, and one to perform a search then emit the results.
 
 ###Bind vs Self
-You might have noticed the calls to <code>.bind(this)</code>. This ensures the context of <code>this</code> when our handlers are called. We could have also created a variable to hold <code>this</code>, added all our methods to it, and referenced that variable everywhere instead of <code>this</code>. I have no idea which is better. So if somebody wants to enlighten me, I would love to hear the benefits of either.
+You might have noticed the calls to ```.bind(this)```. This ensures the context of ```this``` when our handlers are called. We could have also created a variable to hold ```this```, added all our methods to it, and referenced that variable everywhere instead of ```this```. I have no idea which is better. So if somebody wants to enlighten me, I would love to hear the benefits of either.
 
 ##Finishing Up
 Obviously our current app.js isn't go to do us any good now. Let's update it.
 
-{% highlight javascript linenos %}
+~~~ javascript
 var SearchBar = require('./searchbar'),
     domready = require('domready');
 
@@ -181,14 +180,14 @@ function run(){
 };
 
 domready(run);
-{% endhighlight %}
+~~~
 Here we bring in our new SearchBar module, and dom-ready. We get our container, create the search bar, listen for the success event, and render our template. Of course, we wait until the DOM is ready.
 
 All that's left to do is bundle everything and see what we've got.
 
-{% highlight bash %}
+~~~ bash
 npm run watch && npm run start
-{% endhighlight %}
+~~~
 
 ##When Next We Meet
 In the next installment, we'll actually do something interesting with those search result: display a list of clickable thumbnails.

@@ -30,10 +30,10 @@ a number *n* represents *n* successions from zero.
 
 So, assuming we have a way to model zero, we could represent numbers like so.
 
-{% highlight javascript linenos %}
+~~~ javascript
 var one = succ(zero);
 var two = succ(one); //=> Or succ(succ(zero));
-{% endhighlight %}
+~~~
 
 Now that we have an abstract notion of natural numbers, how do we define ```zero```?
 As it turns out, we can use the **identity** function to represent zero. As a
@@ -41,11 +41,11 @@ quick refresher, **identity** looks like this: ```λx.x```.
 
 In JavaScript we could do this:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var zero = function(x){
    return x;
 };
-{% endhighlight %}
+~~~
 
 But, the **identity** function is already defined. Still, it would be helpful
 to actually use **zero** in our number functions. I won't bother showing the
@@ -79,11 +79,11 @@ You can follow that as far down the rabbit hole as you like, nesting pairs all t
 
 So what does this look like in JavaScript? Well, this is one implementation:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var succ = function (n){
     return pair(untruth)(n);
 };
-{% endhighlight %}
+~~~
 
 Now, I'm fairly certain that this could be simplified to ```var succ = pair(untruth);```
 because λ functions are curried functions. So even though **pair** needs three
@@ -121,11 +121,11 @@ The **isZero** function looks like this: ```λn.(n first)```.
 
 The JavaScript version isn't too different, as it turns out:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var isZero = function(n){
     return n(first);
 };
-{% endhighlight %}
+~~~
 
 ###Pred
 Now that we've got a way to build up successions of numbers, and a mechanism for
@@ -166,11 +166,11 @@ Personally, the simplification from the initial version of **pred** to the final
 
 Luckily, the JavaScript version is straightforward:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var pred = function(n){
     return isZero(n)(zero)(n(second));
 };
-{% endhighlight %}
+~~~
 
 **isZero** is going to return a function that represents true or false. A
 true value is represented with the **truth** function, which is just an alias

@@ -26,17 +26,18 @@ Every function should be curried. When you curry a function, you allow for it's 
 By allowing functions to be partially applied, sitting there waiting for their data, you can compose them; creating newer more powerful functions.
 
 ###No Loops
-Loops are fast. Faster than native iterative methods like <code>Array.prototype.forEach</code>. Certainly faster than recursion, and recursion in JavaScript has that pesky stack to deal with. But remember this is an educational experiment, so I'm not going to worry about performance optimizations. Plus, loops are frowned on in FP.
+Loops are fast. Faster than native iterative methods like ```Array.prototype.forEach```. Certainly faster than recursion, and recursion in JavaScript has that pesky stack to deal with. But remember this is an educational experiment, so I'm not going to worry about performance optimizations. Plus, loops are frowned on in FP.
 
 ###Each Function is a Module
-Another beef I have with Underscore is it's lack of modularity. I can't just require <code>map</code>, for example; I have to take the whole thing. [Other alternative](http://lodash.com/) libraries have custom builds, which is great. My preference is small modules that I can <code>require</code> and compose as I see fit. So I'm going to do each function as a node module. 
+Another beef I have with Underscore is it's lack of modularity. I can't just require ```map```, for example; I have to take the whole thing. [Other alternative](http://lodash.com/) libraries have custom builds, which is great. My preference is small modules that I can ```require``` and compose as I see fit. So I'm going to do each function as a node module. 
 
 Having each function be a module means I can require bits and pieces as I see fit, without having to bring in an entire library. Of course, sometimes you want a whole library, so I'll have a module for that too.
 
 Another benefit of this is each module has it's own repo. That means it's own README.md and it's own tests. I find it far easier to reason about something when it is self contained and as minimal as possile.
 
 In order to achieve this I'm going organize my modules by 'category', similarly to how the Underscore docs are outlined. It looks like this:
-{% highlight bash %}
+
+~~~ bash
 Projects/under-line/
 ├── array
 │   └── first
@@ -50,23 +51,23 @@ Projects/under-line/
 │       ├── index.js
 │       └── package.json
 └── npm-debug.log
-{% endhighlight %}
+~~~
 
 ##One Last Thing
 The currying requirement adds a bit of a wrench into things. Languages like Haskell curry by default; JavaScript does not. One  option would be to write each function in a style that checks the arguments passed and either returns a function to get the remainder, or returns the result; like so:
 
-{% highlight javascript linenos %}
+~~~ javascript
 function add(a,b){
 	if(a && b) return a + b;
 	return function (b){
 		return a + b;
 	}
 }
-{% endhighlight %}
+~~~
 
-Ignoring the obvious issues with the code above, would you really want to write all of that over and over again? I don't; so I wrote this <code>curry</code> module instead:
+Ignoring the obvious issues with the code above, would you really want to write all of that over and over again? I don't; so I wrote this ```curry``` module instead:
 
-{% highlight javascript linenos%}
+~~~ javascript
 module.exports = function(fn, fnLength) {
 	var slice = Array.prototype.slice;
 	
@@ -81,13 +82,13 @@ module.exports = function(fn, fnLength) {
 		}
 	}
 }
-{% endhighlight %}
+~~~
 
-That <code>curry</code> function is the result of stuff I gleened from reading [JavaScript Allonge](http://leanpub.com/javascript-allonge) and from working through the Functional Programming exercises from [node school](http://nodeschool.io). It doesn't look strange to me any more, but it certainly would have a few months ago.
+That ```curry``` function is the result of stuff I gleened from reading [JavaScript Allonge](http://leanpub.com/javascript-allonge) and from working through the Functional Programming exercises from [node school](http://nodeschool.io). It doesn't look strange to me any more, but it certainly would have a few months ago.
 
-<code>curry</code> takes a function, finds the number of arguments, and recursively returns functions until all arguments are accounted for. Once all arguments are present and accounted for, we call the original function and supply the arguments. Optionally, you can pass in the number of arguments to curry; which is handy if you want to curry variadic functions (those which take a varying number of arguments). With this in the toolbelt, I can write functions like I normally would and wrap them in a call to <code>curry</code>.
+```curry``` takes a function, finds the number of arguments, and recursively returns functions until all arguments are accounted for. Once all arguments are present and accounted for, we call the original function and supply the arguments. Optionally, you can pass in the number of arguments to curry; which is handy if you want to curry variadic functions (those which take a varying number of arguments). With this in the toolbelt, I can write functions like I normally would and wrap them in a call to ```curry```.
 
-{% highlight javascript linenos%}
+~~~ javascript
 var curry = require('curry');
 
 module.exports = curry(add);
@@ -95,12 +96,9 @@ module.exports = curry(add);
 function add (a,b){
 	return a + b;
 }
-{% endhighlight %}
+~~~
 
 Sure, I could have installed some module off of npm, but I wanted to learn!
 
 ##Until Next Time
-I've decided to start with the Array category of functions. I'm most comfortable there so I think it's a good way to test the waters. I actually already wrote the <code>first</code> [module](underline-array-first.html); hop on over and see what I came up with.
-
-
- 
+I've decided to start with the Array category of functions. I'm most comfortable there so I think it's a good way to test the waters. I actually already wrote the ```first``` [module](underline-array-first.html); hop on over and see what I came up with.
