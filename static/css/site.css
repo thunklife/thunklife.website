@@ -134,12 +134,15 @@ blockquote p {
 }
 
 p code {
-  padding: 2px 5px;
+  margin: 0 5px;
+  padding: 2px 5px 0 5px;
   background: #ecf0f1;
   color: #7f8c8d;
   border: 1px solid #bdc3c7;
   border-radius: 3px;
   font-size: .8rem;
+  white-space: nowrap;
+  font-family: fira_coderegular;
 }
 
 footer {
