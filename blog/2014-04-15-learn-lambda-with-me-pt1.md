@@ -65,11 +65,12 @@ Sure why not? It's the language I use the most, but more importantly it has firs
 functions. Which means we can create arbitrary functions, pass them as arguments
 and return them from functions; perfect to study λ calculus. Here is what a λ
 function looks like in JavaScript:
-{% highlight javascript linenos %}
+
+~~~ javascript
 var id = function(x){
   return x;
 }
-{% endhighlight %}
+~~~
 
 ##A Fistful of Functions
 There is much more to discuss about λ functions, but without some context, it won't
@@ -89,11 +90,12 @@ So this does what exactly? Oh, well, it takes a value and then returns it.
 Lame, right? Don't worry, it'll make sense later.
 
 In JavaScript, **idenitity** looks like this:
-{%highlight javascript linenos %}
+
+~~~ javascript
 var identity = function (x){
   return x;
 };
-{% endhighlight %}
+~~~
 
 Lame again, I know.
 
@@ -119,11 +121,12 @@ Stick with me though, it gets really cool.
 For fun, consider what this does: ```(λs.(s s) λs.(s s))```
 
 Now for the JavaScript.
-{% highlight javascript linenos%}
+
+~~~ javascript
 var selfApply = function(s){
   return s(s);
 };
-{% endhighlight %}
+~~~
 
 ###Function Application
 The **function-application** or just **apply** function will probably be more familiar to most JavaScript
@@ -135,13 +138,14 @@ The **function-application** function does exactly what its name implies, it tak
 and an argument, and applies the function to that argument.
 
 In JavaScript, we write:
-{% highlight javascript linenos %}
+
+~~~ javascript
 var apply = function(f){
   return function (a){
     return f(a);
   };
 };
-{% endhighlight %}
+~~~
 
 ##All About Variables
 With a couple of basic functions under our belts, we can look at variables a bit
@@ -183,7 +187,7 @@ only ```x``` is bound.
 As it turns out, scoping, free and bound variables work in the same way in JavaScript;
 take this code for example:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var weirdAdd = function operandA(a){
   return function operandB(b){
     return a + b;
@@ -191,7 +195,7 @@ var weirdAdd = function operandA(a){
 };
 
 weirdAdd(2)(3); //=> 5;
-{% endhighlight %}
+~~~
 
 In the example above ```a``` is scoped to the function ```operandA``` and can be
 accessed by any nested functions, like ```operandB```. Additionally, the variable
@@ -201,18 +205,18 @@ What about free and bound variables? Well, we can follow the same rules. If we l
 at the entire expression above, both ```a``` and ```b``` are bound. However what if
 we do this:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var add5 = weirdAdd(5); //=> [Function operandB]
-{% endhighlight%}
+~~~
 
 The function returned by calling ```weirdAdd``` with a single argument would look
 like this:
 
-{%highlight javascript linenos%}
+~~~ javascript
 function operandB(b){
   return a + b;
 }
-{% endhighlight %}
+~~~
 
 Here we can see that ```operandB``` has access ```a``` because of the scope of
 original function ```operandA```, however, ```a``` is free in this situation.
@@ -271,13 +275,14 @@ The **first** function, takes two arguments and returns the first. I'm not
 going to bother with an example reduction because it's pretty self-explanatory.
 
 In JavaScript it looks like this
-{% highlight javascript linenos %}
+
+~~~ javascript
 var first = function(x){
   return function(y){
     return x;
   };
 };
-{% endhighlight %}
+~~~
 
 ###Second
 I'm going to move on to the next function quickly because they make more sense
@@ -288,13 +293,14 @@ The **second** function has this form: ```λx.λy.y```
 
 I'm sure you've already figured out what it looks like in JavaScript, but just for
 fun:
-{% highlight javascript linenos %}
+
+~~~ javascript
 var second = function(x){
   return function(y){
     return y;
   };
 };
-{% endhighlight %}
+~~~
 
 ###Pair
 Now for the good stuff. So how would you create a pair of things using only functions?
@@ -332,7 +338,7 @@ and we get our **identity** function as the result.
 
 In JavaScript, this looks like:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var pair = function(x){
   return function(y){
     return function(f){
@@ -340,7 +346,7 @@ var pair = function(x){
     };
   };
 };
-{% endhighlight %}
+~~~
 
 ##Summary
 So there you have it, a high-level overview of the λ calculus. I've hand-waived

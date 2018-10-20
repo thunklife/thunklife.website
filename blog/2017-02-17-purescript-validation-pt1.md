@@ -13,7 +13,6 @@ spurescript-uccess. Both `Left` and `Right` bring extra data along with them so 
 provide some context for the failure.
 
 ~~~ haskell
-
 greaterThanTen :: Int -> Maybe Int
 greaterThanTen n =
   case n < 11 of
@@ -25,7 +24,6 @@ greaterThanTwenty n =
   case n < 21 of
     true -> Left "Must be greater than 20"
     false -> Right n
-    
 ~~~
 
 Cool. So we have two ways to validate an input: we can use `Maybe` if we don't
@@ -41,23 +39,20 @@ name can't be empty, or they must be over 18?
 In this scenario we have a `Person`, but we don't expose the data constructor
 directly because we want to verify some inputs before hand.
 
-{% highlight haskell %}
-
+~~~ haskell
 newtype FirstName = FirstName String
 newtype LastName = LastName String
 newtype Age = Age Int
 
 data Person = Person FirstName LastName Age
-
-{% endhighlight %}
+~~~
 
 We can ensure we only construct `Person` with validate data by providing
 smart constructors, functions that perform the validations we want, for each field.
 These functions take the input and use a datatype like `Maybe` or `Either` to
 account for failure. Here are some smart constructors that use `Maybe`:
 
-{% highlight haskell %}
-
+~~~ haskell
 firstRequired :: String -> Maybe FirstName
 firstRequired "" = Nothing
 firstRequired s = Just (FirstName s)
@@ -70,38 +65,33 @@ ageGT18 :: Int -> Maybe Age
 ageGTFive n = case n < 18 of
   true -> Nothing
   false -> Just (Age n)
-
-{% endhighlight %}
+~~~
 
 Ok, we've got functions for each field in our `Person` type, but we still a way
 to glue all of those checks together. Luckily, we can use the `Applicative`
 ([Pursuit](https://pursuit.purescript.org/packages/purescript-prelude/2.4.0/docs/Control.Applicative#t:Applicative))
 instance of `Maybe` to do just that:
 
-{% highlight haskell %}
-
+~~~ haskell
 validatePerson :: String -> String -> Int -> Maybe Person
 validatePerson f l a = Person
                        <$> firstRequired  f
                        <*> lastRequired l
                        <*> ageGTFive a
-
-{% endhighlight %}
+~~~
 
 We're using the `Applicative` instance for `Maybe` here to allow us to, essentially,
 map a bunch of functions that return `Maybe` values over our `Person` constructor;
 a function that takes `String`s and an `Int`.
 So what happens when we use this?
 
-{% highlight bash %}
-
+~~~ haskell
 > validatePerson "John" "Jacob" 19
 (Just Person John Jacob 19)
 
 > validatePerson "John" "" 19
 Nothing
-
-{% endhighlight %}
+~~~
 
 That's pretty good, but we'll get the same `Nothing` value each time a try to
 construct an invalid `Person`; not providing a first name fails in the same way
@@ -111,8 +101,7 @@ With `Either` we can provide more information about a failure, so we create a
 `PersonError` datatype to use in our smart constructors. If the input is valid,
 we'll use the `Right` data constructor and we'll use `Left` for our errors.
 
-{% highlight haskell %}
-
+~~~ haskell
 data PersonError = FirstNameRequired | LastNameRequired | Under18
 
 firstRequired :: String -> Either PersonError FirstName
@@ -133,15 +122,13 @@ validatePerson f l a = Person
                        <$> firstRequired  f
                        <*> lastRequired l
                        <*> ageGTFive a
-
-{% endhighlight %}
+~~~
 
 Like `Maybe`, `Either` implements the `Applicative` typeclass, so glueing our
 functions together stays the same, but now we return an `Either`. Now if we try
 to create a `Person` using invalid inputs:
 
-{% highlight bash %}
-
+~~~ bash
 > validatePerson "John" "Jacob" 19
 (Right Person John Jacob 19)
 
@@ -150,17 +137,14 @@ to create a `Person` using invalid inputs:
 
 > validatePerson "John" "Jacob" 12
 (Left Under18)
-
-{% endhighlight %}
+~~~
 
 Much better! Now we know more about why our function failed. But what if we do:
 
-{% highlight bash %}
-
+~~~ bash
 > validatePerson "" "" 10
 (Left FirstNameRequired)
-
-{% endhighlight %}
+~~~
 
 Hmmmm. Better than `Maybe`, which gives using `Nothing`, but it still doesn't tell
 the whole story. Our `Person` couldn't be constructed because all three inputs
@@ -184,19 +168,16 @@ a separate post.
 `purescript-validation` provides the datype called `V` which is basically like
 `Either`:
 
-{% highlight haskell %}
-
+~~~ haskell
 data V err result = Invalid err | Valid result
-
-{% endhighlight %}
+~~~
 
 Here the `Invalid` data constructor is the same as `Left` and `Valid` is `Right`,
 the difference is in the `Applicative` instance, which says that any errors
 in must implement `Semigroup` so that they can be accumulated with `<>`. Let's
 see an example:
 
-{% highlight haskell %}
-
+~~~ haskell
 firstRequired :: String -> V (Array PersonError) FirstName
 firstRequired "" = invalid [FirstNameRequired]
 firstRequired s = pure (FirstName s)
@@ -215,8 +196,7 @@ validatePerson f l a = Person
                        <$> firstRequired  f
                        <*> lastRequired l
                        <*> ageGTFive a
-
-{% endhighlight %}
+~~~
 
 A lot more had to change than when we switched from `Maybe` to `Either`, so
 let's unpack it a bit.
@@ -235,7 +215,7 @@ all the errors at the end.
 
 Alright, so what happens when we try to use this?
 
-{% highlight bash %}
+~~~ bash
 > validatePerson "John" "Jacob" 19
 (Valid Person John Jacob 19)
 
@@ -244,8 +224,7 @@ Alright, so what happens when we try to use this?
 
 > validatePerson "John" "" 10
 (Invalid [LastNameRequired, Under18])
-
-{% endhighlight %}
+~~~
 
 Nice! Now we know each input that failed.
 

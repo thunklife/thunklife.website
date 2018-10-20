@@ -20,7 +20,7 @@ of kinds. Just as every expression in Haskell has a type, every type in Haskell
 has a kind. The simplest way I've found to think of kinds is as the type of
 types, and we can query the kind of a type using GHCi.
 
-{% highlight bash %}
+~~~ bash
 Prelude> :k Char
 Char :: *
 
@@ -29,7 +29,7 @@ Prelude> :k []
 
 Prelude> :k (,)
 (,) :: * -> * -> *
-{% endhighlight %}
+~~~
 
 The kind of a type is denoted using a `*`. Concrete types like `Char` have kind
 `*`. The `List` type, however, has the kind `* -> *` which looks a lot like the
@@ -44,13 +44,13 @@ means it needs two concrete types before it can itself be concrete.
 
 Since type constructors are functions, we can partially apply them:
 
-{% highlight bash %}
+~~~ bash
 Prelude> :k (,) Int
 (,) Int :: * -> *
 
 Prelude> :k (,) Int String
 (,) Int String :: *
-{% endhighlight %}
+~~~
 
 In the first example we provide one of the required type variables for a tuple,
 and the result has kind `* -> *`. In the second, we provide both type variables
@@ -58,13 +58,13 @@ and get back a concrete type.
 
 Here is an example of another type that sometimes causes confusion:
 
-{% highlight bash %}
+~~~ bash
 Prelude> :k Either
 Either :: * -> * -> *
 
 Prelude> :k Either Int
 Either Int :: * -> *
-{% endhighlight %}
+~~~
 
 The strange thing here is that `Either a b` is a sum type. Unlike a tuple (which
 is a product), a value of `Either a b` can only be one of two things `Left a` or
@@ -78,7 +78,7 @@ important to understanding what is going on with `(,)` and `Either a b`.
 
 Typeclass definitions can constrain the kind of the type variable they require.
 
-{% highlight bash %}
+~~~ bash
 Prelude> :i Foldable
 class Foldable (t :: * -> *) where
     foldr :: (a -> b -> b) -> t a -> b -> b
@@ -86,7 +86,7 @@ class Foldable (t :: * -> *) where
 Prelude> :i Functor
 class Functor (f :: * -> *) where
     fmap :: (a -> b) -> f a -> f b
-{% endhighlight %}
+~~~
 
 Both classes require that any instances be of kind `* -> *`. This means we can't
 have a `Functor` instance of `Char` or `Int`, nor can we have one for `(,)` or
@@ -94,20 +94,20 @@ have a `Functor` instance of `Char` or `Int`, nor can we have one for `(,)` or
 `Either a b` or `(,)` the right kind by partially applying it. We don't need to
 provide a concrete type though, we can simply provide a type variable.
 
-{% highlight haskell linenos %}
+~~~ haskell
 instance Functor (Either a) where
 -- omitted
 
 instance Functor ((,) a) where
 -- omitted
-{% endhighlight %}
+~~~
 
 Now we have instances of `Functor` for our types, but what does that mean for
 the actual function implementations?
 
 Take a look at the types for `fmap` and `foldr` again.
 
-{% highlight bash %}
+~~~ bash
 Prelude> :i Foldable
 class Foldable (t :: * -> *) where
     foldr :: (a -> b -> b) -> t a -> b -> b
@@ -115,7 +115,7 @@ class Foldable (t :: * -> *) where
 Prelude> :i Functor
 class Functor (f :: * -> *) where
     fmap :: (a -> b) -> f a -> f b
-{% endhighlight %}
+~~~
 
 `foldr` requires a `t a` where `t` is kind `* -> *`. The `a` in `t a`, in the
 case of `Either a b` and `(,)` necessarily points to the second type variable;
@@ -127,14 +127,14 @@ In the case of a tuple, that means the second element. In the case of
 is used. As you can see from the actual implementations, that is exactly what
 we get.
 
-{% highlight haskell linenos %}
+~~~ haskell
 instance Functor (Either a) where
     fmap _ (Left x)  = Left x
     fmap f (Right y) = Right (f y)
 
 instance Functor ((,) a) where
     fmap f (x, y) = (x, f y)
-{% endhighlight %}
+~~~
 
 ##"Arbitrary"
 
@@ -147,7 +147,7 @@ see what happens if we try to write a `Functor` instance for `Either a b` that
 maps both the sides.
 
 
-{% highlight haskell linenos %}
+~~~ haskell
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE KindSignatures #-}
 
@@ -160,14 +160,14 @@ class Functor (f :: * -> *) where
 instance Functor (Either a) where
   fmap f (Left a)  = Left (f a)
   fmap f (Right b) = Right (f b)
-{% endhighlight %}
+~~~
 
 I've had to jump through a few hoops since `Either a` is already an instance of
 `Functor`, but everything lines up.
 
 If we attempt to load that into GHCi
 
-{% highlight bash %}
+~~~ bash
 Prelude> :l Test.hs
 [1 of 1] Compiling Test             ( Test.hs, interpreted )
 
@@ -203,7 +203,7 @@ Test.hs:11:30:
     In the first argument of ‘f’, namely ‘a’
     In the first argument of ‘Left’, namely ‘(f a)’
 Failed, modules loaded: none.
-{% endhighlight %}
+~~~
 
 Quite the mess. What the compiler is telling us is that it found type `b` where
 it expected to see type `a`. Speficially, it expected to see type `a` as the
@@ -223,10 +223,10 @@ implementation is to map over the second element.
 
 Right I almost forgot, this whole thing started because
 
-{% highlight bash %}
+~~~ bash
 Prelude> length (1, 2)
 1
-{% endhighlight %}
+~~~
 
 Clearly this is madness! I mean, we have a 2 tuple! I can see both elements!
 Seriously, this is JavaScript-level fuckery.
@@ -235,18 +235,18 @@ Nah.
 
 First the implementation of `length`
 
-{% highlight haskell linenos %}
+~~~ haskell
 length :: t a -> Int
 length = foldl' (\c _ -> c+1) 0
-{% endhighlight %}
+~~~
 
 The definition of `foldl'` is the same for all instances of `Foldable` as it
 relies on the definition of `foldr` so let's look at that:
 
-{% highlight haskell linenos %}
+~~~ haskell
 instance Foldable ((,) a) where
     foldr f z (_, y) = f y z
-{% endhighlight %}
+~~~
 
 We know from before that we simply cannot do anything with the first element;
 it won't compile. So we take our function and apply to the second element and

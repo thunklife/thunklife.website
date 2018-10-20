@@ -30,11 +30,11 @@ or union types. You can think of a sum type sort of like an enum, but they can
 come with data which is something that enums don't have. Here is a quick example
 in [Haskell](https://haskell-lang.org/):
 
-{% highlight haskell %}
+~~~ haskell
 data Jibberish = Foo | Bar | Baz | Qux
 
 data Maybe a = Nothing | Just a
-{% endhighlight %}
+~~~
 
 Here we've got two data types: `Jibberish` and `Maybe a`. A value of type
 `Jibberish` is either `Foo`, `Bar`, `Baz` or `Qux`. The "or" is key here. The
@@ -48,7 +48,7 @@ TypeScript has support for sum types, and when you combine them with your own
 interfaces/classes you can get pretty close to something like what you get in
 Haskell:
 
-{% highlight typescript %}
+~~~ javascript
 class Just<T> {
   value;
   constructor(a :T) { this.value = a; }
@@ -57,7 +57,7 @@ class Just<T> {
 class Nothing {}
 
 type Maybe<T> = Nothing | Just<T>
-{% endhighlight %}
+~~~
 
 Unfortunately TypeScript doesn't have anything like Haskell data constructors,
 so I had to create classes instead. If you're new to TypeScript, like me, that
@@ -79,10 +79,10 @@ I decided to see if I could define one of the most basic Haskell type classes:
 "container" and a way to apply a function to every value inside that container.
 The definition in Haskell is:
 
-{% highlight haskell %}
+~~~ haskell
 class Functor f where
   fmap :: (a -> b) -> f a -> f b
-{% endhighlight %}
+~~~
 
 This says we've got some Functor `f` and its interface is a function called
 `fmap`. `fmap` takes two arguments. The first is a function that takes values
@@ -93,11 +93,11 @@ don't have to be different types, but they can be.
 
 That should be pretty simple to define in TypeScript:
 
-{% highlight typescript %}
+~~~ javascript
 interface Functor<F> {
   fmap<A, B>(f: (arg: A) => B): Functor<F>
 }
-{% endhighlight %}
+~~~
 
 Ok, that's a little different so let's step through it. We still have a
 `Functor<F>`, and a function from `A` values to `B` values, TypeScript just
@@ -120,20 +120,20 @@ is generic and that generic thing needs to have a constructor that takes one
 argument," which is essentially what kind `* -> *` means. However, we can get
 close by creating another interface:
 
-{% highlight typescript %}
+~~~ javascript
 interface StarToStar<T> {
   value: T
 }
 
 // I couldn't come up with a better way to say * -> *
-{% endhighlight %}
+~~~
 
 Now we have an interface for something that has a single value. It doesn't
 specify a constructor function so how that value gets set is implied.
 
 With that interface defined we can redefine the Functor interface:
 
-{% highlight typescript %}
+~~~ javascript
 interface StarToStar<T> {
   value: T
 }
@@ -141,7 +141,7 @@ interface StarToStar<T> {
 interface Functor<F extends StarToStar<any>> {
   fmap<A, B>(f: (arg: A) => B): Functor<F>
 }
-{% endhighlight %}
+~~~
 
 So now to be a valid functor the type `F` must be an instance of
 `StarToStar<any>`; the Functor doesn't care what the values are, but it does
@@ -156,7 +156,7 @@ that Maybe is an instance of Functor; unfortunately,
 Functor interface. However, I could have each of the class that `Maybe<T>` is
 composed of implement it and get basically the same thing.
 
-{% highlight typescript %}
+~~~ javascript
 interface StarToStar<T> {
   value: T
 }
@@ -180,7 +180,7 @@ class Nothing implements Functor<Nothing>{
   }
 }
 
-{% endhighlight %}
+~~~
 
 Now `Just<T>` and `Nothing` implement `Functor<T>`. When we `fmap` a function
 over `Just<T>` we take the value, apply the function provided and wrap it back
@@ -192,7 +192,7 @@ We now have a way to generalize applying a function to values inside of
 of others. We can then write a standalone function for `fmap` that works on any
 Functor rather than having to use the dot notation above.
 
-{% highlight typescript %}
+~~~ javascript
 function fmap<F extends StarToStar<any>, A, B>(f: (a: A) => B, fa: Functor<F>): Functor<F> {
   return fa.fmap(f);
 }
@@ -202,7 +202,7 @@ const justOneString = fmap((x) => x.toString(), justOne); // => Just { value: '1
 
 const nothing = new Nothing(); // => Nothing
 const stillNothing = fmap((x) => x.toString(), nothing); // => Nothing
-{% endhighlight %}
+~~~
 
 ## Summary
 

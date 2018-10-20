@@ -21,36 +21,36 @@ Enough of that. Let's dive in.
 
 ##Setting Up
 I'm going to assume you have node and npm installed, so the first thing you want to do is set up a directory, and a repo.
-{% highlight bash %}
+~~~ bash
 mkdir flickr-viewer && cd flickr-viewer/ && git init
-{% endhighlight %}
+~~~
 
 Simple enough. Now we need a .gitignore. I keep mine simple.
-{% highlight bash %}
+~~~ bash
 echo node_modules > .gitignore
-{% endhighlight %}
+~~~
 
 The last thing we need to get things started is package.json. You might have your own, I was still new to all of this so I went with:
-{% highlight bash %}
+~~~ bash
 npm init
-{% endhighlight %}
+~~~
 Then I just answered all of the prompts and moved on.
 
 ##Builds
-My third goal was to use npm for everything, so it works out nicely that there is <code>npm run</code>. We can create commands in our <code>package.json</code> and run them with npm. No Make, Jake, Grunt or anything else. I don't have any preference, yet, but I wanted to keep things simple, and npm had what I needed built in.
+My third goal was to use npm for everything, so it works out nicely that there is ```npm run```. We can create commands in our ```package.json``` and run them with npm. No Make, Jake, Grunt or anything else. I don't have any preference, yet, but I wanted to keep things simple, and npm had what I needed built in.
 
 Before we can set up the build scripts, we'll need to pull in a couple of modules. I'll explain each in a moment.
 
-{% highlight bash %}
+~~~ bash
 npm install browserify --save-dev
 npm install watchify --save-dev
 npm install catw --save-dev
 npm install uglify-js --save-dev
 npm install http-server --save-dev
 npm install hbsfy --save-dev
-{% endhighlight %}
+~~~
 
-Now, each of those is going to install into your local node_modules, but you could just as easily choose to install them globally. I like this approach because anybody that wants to pull down your project just needs to run <code>npm install</code> and everything is ready for them.
+Now, each of those is going to install into your local node_modules, but you could just as easily choose to install them globally. I like this approach because anybody that wants to pull down your project just needs to run ```npm install``` and everything is ready for them.
 
 First up is [browserify](https://npmjs.org/package/browserify). Browserify is what lets us write node modules for the browser. It goes through your require calls and bundles up all the dependecies. 
 
@@ -62,11 +62,11 @@ Next, we've got [uglify-js](https://npmjs.org/package/uglify-js), which is JS pa
 
 [http-sever](https://npmjs.org/package/http-server) is a simple http server, and is honestly totally optional. If you prefer something else, then go for it.
 
-Lastly, we've got [hbsfy](https://npmjs.org/package/hbsfy). I chose to use [handlebars](http://handlebarsjs.com/) for templating and hbsfy will work with browserify to allow me to require my <code>.hbs</code> files like any other module.
+Lastly, we've got [hbsfy](https://npmjs.org/package/hbsfy). I chose to use [handlebars](http://handlebarsjs.com/) for templating and hbsfy will work with browserify to allow me to require my ```.hbs``` files like any other module.
 
 Now for the good stuff, the builds. Now, I can't take credit for this, they're taken directly from [an article](http://substack.net/task_automation_with_npm_run) by [substack](https://npmjs.org/~substack). Here is the scripts section of package.json.
 
-{% highlight javascript linenos %}
+~~~ javascript
 "scripts": {
     "build-js": "browserify -t hbsfy app.js | uglifyjs -mc > public/app.js",
     "build-css": "cat css/*.css > public/css/site.css",
@@ -76,7 +76,7 @@ Now for the good stuff, the builds. Now, I can't take credit for this, they're t
     "watch": "npm run watch-js && npm run watch-css",
     "start": "http-server"
   }
-{% endhighlight %}
+~~~
 
 I won't go into the nitty-gritty of each, but essentially you've got two sets of commands. 
 
@@ -89,59 +89,59 @@ Lastly, you've got 'start'. This just spins up http-server.
 ##Finishing Up
 OK. We're all setup, so let's make sure everything works. First we need our public directory.
 
-{% highlight bash %}
+~~~ bash
 mkdir public
-{% endhighlight %}
+~~~
 
 To make sure all of the pieces are playing nicely, we'll add a simple app.js and index.hbs file.
 
-{% highlight javascript linenos %}
+~~~ javascript
 //app.js
 var template = require('./index.hbs'),
 	container = document.getElementById('container');
 
 container.innerHTML = template();
-{% endhighlight %}
+~~~
 
-{% highlight html linenos %}
+~~~ html
 <!-- index.hbs -->
 <h1>Hello from Handlebars!</h1>
-{% endhighlight %}
+~~~
 
 Of course, we'll need an entry point for our app. So we'll add an index.html to the public directory.
-{% highlight html linenos %}
+~~~ html
 <html>
 	<body>
 		<div id="container"></div>
 	</body>
 	<script src="app.js"></script>
 </html>
-{% endhighlight %}
+~~~
 
 Next:
 
-{% highlight bash %}
+~~~ bash
 npm run watch
-{% endhighlight %}
+~~~
 
 If we did everything right, we should get something like this:
 
-{% highlight bash %}
+~~~ bash
 > flickr-viewer@0.0.0 watch /home/wilhelmson/Projects/myApp
 > npm run watch-js && npm run watch-css
 
 
 > flickr-viewer@0.0.0 watch-js /home/wilhelmson/Projects/myApp
 > watchify -t hbsfy app.js -o public/app.js
-{% endhighlight %}
+~~~
 
 Assuming everything worked, all that is left to do is:
-{% highlight bash %}
+~~~ bash
 npm run start
-{% endhighlight %}
+~~~
 
 The http-server  module will print the port number it is running on in the console, probably 8000, so just hit that and you should see:
-<p><img src="/images/flickr-viewer-intro.png"/></p>
+![](/images/flickr-viewer-intro.png)
 
 ##Wrap-Up
 OK, so that might not seem to impressive, but set up rarely is. However, we've now got a nice platform to build our application from. We've got the main pieces in play to write, build an run our app, and it's all built using only what node and npm have to offer.

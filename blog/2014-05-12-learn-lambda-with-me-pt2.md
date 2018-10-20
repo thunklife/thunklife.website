@@ -35,22 +35,22 @@ These items are covered in chapter 3 of [the book](http://www.amazon.com/gp/prod
 ##Conditional Expression, True & False
 Let's consider a simple conditional expression in JavaScript:
 
-{% highlight javascript linenos %}
+~~~ javascript
 if (someCondition) {
   return doTrueAction();
 } else {
   return doFalseAction();
 }
-{% endhighlight %}
+~~~
 
 In JavaScript, the ```else``` block isn't required, but in other languages, such as
 Haskell, the ```else``` block must be explicit; the same is true in λ Calculus.
 
 Of course, JavaScript offers an alternative syntax for if/else conditions:
 
-{% highlight javascript linenos %}
+~~~ javascript
 return someCondition ? doTrueAction() : doFalseAction();
-{% endhighlight %}
+~~~
 
 With a conditional expression expressed in this fashion, the translation to λ
 Calculus becomes simpler. If you think about it abstractly, what we have here is
@@ -60,7 +60,8 @@ condition is false. So then, a conditional expression can be modeled using the
 
 If you recall, the **pair** function looks like this: ```λx.λy.λf((f x) y)```.
 In JavaScript it is written like so:
-{% highlight javascript linenos %}
+
+~~~ javascript
 var pair = function (x){
   return function (y){
     return function (f){
@@ -68,15 +69,15 @@ var pair = function (x){
     };
   };
 };
-{% endhighlight %}
+~~~
 
 Of course, we're good developers and we wouldn't duplicate that code, but we
 would want to name it such that we know we're talking about, so we'll just give
 it an alias.
 
-{% highlight javascript linenos %}
+~~~ javascript
 var cond = pair;
-{% endhighlight%}
+~~~
 
 If a conditional expression is a pair, then we should be able to use **first**
 and **second** to represent true and false, respectively, since they are used
@@ -85,7 +86,7 @@ to pick an item from a pair. Here's a quick refresher on those two:
 **first** looks like this:  ```λx.λy.x```, and **second** looks like this: ```λx.λy.y```.
 In JavaScript we wrote those functions like this:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var first = function (x){
   return function (y){
     return x;
@@ -97,14 +98,14 @@ var second = function (x){
     return y;
   };
 };
-{% endhighlight %}
+~~~
 
 Again, we can repurpose these functions:
 
-{% highlight javascript linenos %}
+~~~ javascript
 var truth = first;
 var untruth = second;
-{% endhighlight %}
+~~~
 
 Since we can't use ```true``` and ```false``` as names, I've gone with ```truth```
 and ```untruth``` instead.
@@ -160,11 +161,11 @@ any further. The body, or return value, has already been substituted, we know
 
 So how is this expressed in JavaScript?
 
-{% highlight javascript linenos %}
+~~~ javascript
 var not = function (x){
   return x(untruth)(truth);
 };
-{% endhighlight %}
+~~~
 
 Keep in mind that ```x``` is a function that represents either true or false, aka **truth**
 or **false**, aka **first** or **second**.
