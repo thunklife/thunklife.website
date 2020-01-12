@@ -130,6 +130,19 @@ blockquote p {
   margin: 0;
 }
 
+li {
+  line-height: 1.65rem;
+  padding: 5px;
+  list-style-type: none;
+}
+
+p {
+  margin: 0px 0px 20px 0;
+  line-height: 1.65rem;
+}
+
+
+
 p code {
   margin: 0 5px;
   padding: 2px 5px 0 5px;
@@ -143,19 +156,43 @@ p code {
 
 footer {
   font-family: open_sanslight;
-  font-size: 15px;
+  color: #434c5e;
+  font-size: 2rem;
   padding: 20px 0;
   text-align: center; }
+
+.me {
+  display: flex;
+}
+
+.head-photo-container {
+  width: 30%;
+}
+
+.head-photo{
+  border-radius: 50%;
+  width: 100%;
+  border: 5px solid #b48ead;
+}
 
 .about {
   font-family: open_sanslight;
   font-size: 32px;
+  padding-left: 20px;
+  text-align: right;
+  width: 65%;
 }
+
 
 .post-list {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
+}
+
+.post-list li a {
+  display: inline-block;
+  width: 100%;
 }
 
 .post-list .fa-star {
@@ -171,21 +208,6 @@ footer {
   max-width: 800px;
   padding: 0 40px;
   margin: 0 auto;
-}
-
-p {
-  margin: 0px 0px 20px 0;
-  line-height: 1.65rem;
-}
-
-li {
-  line-height: 1.65rem;
-  padding: 5px;
-}
-
-li a {
-  width: 100%;
-  display: inline-block;
 }
 
 .cv h1{
