@@ -34,7 +34,10 @@
   box-sizing: border-box; }
 
 body {
-  font-family: open_sansregular }
+  font-family: open_sansregular;
+  background-color: #2e3440;
+  color: #eceff4;
+}
 
 header {
   overflow: hidden;
@@ -47,7 +50,6 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: #a0a5ae; 
 }
 
 nav .links, 
@@ -63,17 +65,11 @@ nav .links {
 
 nav .links a {
   padding: 5px 15px;
-  color: #a0a5ae;
   font-size: 1.5rem; 
   display: flex;
   flex-direction: column;
   font-size: .95rem;
   text-align: center;
-}
-
-nav .links a:hover {
-  text-decoration: none;
-  color: #e74c3c; 
 }
 
 nav .links i:hover {
@@ -89,12 +85,12 @@ header .container {
 }
 
 a {
-  color: #e74c3c;
+  color: #81a1c1;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #8fbcbb
 }
 
 ul, ol {
@@ -106,6 +102,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   padding: 0 0 10px 0;
   line-height: 2.33rem;
+  color: #b48ead
 }
 
 h1 {
@@ -125,8 +122,8 @@ h3 {
 blockquote {
   padding: 10px;
   margin: 20px 0 20px 20px;
-  border-left: 1px solid #bdc3c7;
-  color: #7f8c8d;
+  border-left: 1px solid #88c0d0;
+  color: #a3be8c;
 }
 
 blockquote p {
@@ -136,9 +133,8 @@ blockquote p {
 p code {
   margin: 0 5px;
   padding: 2px 5px 0 5px;
-  background: #ecf0f1;
-  color: #7f8c8d;
-  border: 1px solid #bdc3c7;
+  background: #e5e9f0;
+  color: #4c566a;
   border-radius: 3px;
   font-size: .8rem;
   white-space: nowrap;
@@ -151,52 +147,20 @@ footer {
   padding: 20px 0;
   text-align: center; }
 
-.me{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.header-img {
-  background: url('/static/images/dome.jpg');
-  background-size: 1500px;
-  width: 1440px;
-  height: 350px;
-  background-position: 50%;
-}
-
-.head-photo-container {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  border: 5px solid #e74c3c;
-  border-radius: 50%;
-  position: relative;
-  top: -90px;
-  display: flex;
-}
-
-.head-photo {
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
-}
-
 .about {
-  position: relative;
   font-family: open_sanslight;
   font-size: 32px;
-  text-align: center;
-  top: -75px;
 }
 
 .post-list {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
-  text-align: center;
 }
 
 .post-list .fa-star {
-  margin-right: 10px
+  margin-right: 10px;
+  color: #ebcb8b
 }
 
 .post-title {
@@ -209,12 +173,6 @@ footer {
   margin: 0 auto;
 }
 
-.main {
-  padding: 65px 0px 20px 0px;
-  background-color: #fefefe;
-  color: #131313;
-}
-
 p {
   margin: 0px 0px 20px 0;
   line-height: 1.65rem;
@@ -225,20 +183,29 @@ li {
   padding: 5px;
 }
 
+li a {
+  width: 100%;
+  display: inline-block;
+}
+
 .cv h1{
   margin-bottom: 0;
   padding-bottom: 5px;
 }
 
-.cv section{
+.cv .email{
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.cv .section{
   margin: 20px 0;
-  padding-top: 20px;
-  border-top: 1px solid #BDC3C7;
 }
 
 .cv .meta{
   position: absolute;
   display: inline-block;
+  color: #d08770;
 }
 
 .cv .meta p{
@@ -254,32 +221,29 @@ li {
 
 .cv .bingo{
   font-size:.8rem;
+  line-height: 1.5;
+  color: #ebcb8b;
+  font-style: italic;
+  display: inline-block;
 }
 
-.talks img {
-  width: 100%;
-  border-radius: 4px;
-  border: 5px solid white;
-  box-shadow: 0 0 2px rgba(0,0,0,.5);
+.talks h2 {
+  padding: 0;
 }
 
 .talks .meta p {
   font-size: 12px;
-  color: #BDC3C7;
   margin: 0;
   line-height: auto;
+  color: #d08770;
 }
 
 .talks article{
   margin-bottom: 10px;
-  border-bottom: 1px solid #BDC3C7;
+  border-bottom: 1px solid #eceff4;
 }
 
 .talks article:last-of-type{
   margin-bottom: 0;
   border-bottom: none;
-}
-
-.talks a:hover img{
-  border-color: #e74c3c;
 }

@@ -7,7 +7,7 @@ I've been slowly going through [Learn You a Haskell for Great Good](http://learn
 
 ##A Programmer Had a Problem...
 
->A programmer had a problem; he decided to solve it with recursion. Now he ha <pre style="color: red">[maximum stack size exceeded]</pre>
+>A programmer had a problem; he decided to solve it with recursion. Now he ha <pre style="color: #bf616a">[maximum stack size exceeded]</pre>
 
 My friend and I have a bit of an inside joke at work. I tell him I just wrote a recursive function, and ask what the odds are that it'll overflow the stack. He asks if it's my first time running it. If the answer is yes, the odds are 100%. 
 

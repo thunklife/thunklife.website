@@ -5,8 +5,8 @@ td.lineNumbers { border-right: 1px solid #e5e9f0; text-align: right; color: #e5e
 td.sourceCode { padding-left: 5px;  }
 div.sourceCode { margin-bottom: 20px }
 pre.sourceCode { color: #d8dee8;
-  background-color: #3b4251; padding: 20px; border-radius: 5px; line-height: 1.4}
-.sourceCode span { font-family: 'fira_coderegular'; }
+  background-color: #3b4251; padding: 15px; border-radius: 3px; line-height: 1.4}
+.sourceCode { font-family: 'fira_coderegular'; font-size: .9rem}
 .sourceCode span.kw { color: #a3be8b; font-weight: bold; }
 .sourceCode span.dt { color: #88c0d0; }
 .sourceCode span.dv { color: #a3be8b; }
