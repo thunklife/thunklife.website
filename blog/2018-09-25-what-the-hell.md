@@ -1,6 +1,5 @@
 ---
 title: What The Hell Happened?
-mostRecent: true
 ---
 
 I've been back online for a while now, but I was gone even longer. Most people know the gist, and some people know more; I try to be open about everything that went down. Either way, I felt like I should say something.
