@@ -169,3 +169,33 @@ Here is the result:
 Here we can see that the test failed after one run and `fast-check` provides a counter example telling us that if 0 and 20
 are added together the answer will not match our property. We expected any integer (`a`) plus `20` to equal `a` and that
 fails right away.
+
+Fast-check has a lot of what are called 'arbitraries', functions like `fc.integer` and `fc.constant`, that generate arbiraty
+values for each test run. These are just a few examples.
+
+These examples are pretty basic and defining properties can be difficult, particularly if we try to ascertain what mathmatical properties
+our function upholds. What if it doesn't have any?
+
+### A More Real World Example
+
+Likely, there is some sort of property that you function holds. In this case, taken from something I worked recently, that property
+was the validity of an object and it's properties.
+
+Let's say we have a `options` argument that we pass to a function that validates the options before doing any further processing. We
+can use a library like `joi` to specify the properties of out `options` object and then validate that.
+
+``` javascript
+const defaultOptions = {
+	foo: false,
+	bar: false,
+	baz: false,
+	qux: false
+}
+
+const optionsSchema = Joi.object({
+	foo: Joi.boolean().default(false),
+	bar: Joi.boolean().default(false),
+	baz: Joi.boolean().default(false),
+	qux: Joi.boolean().default(false)
+}).default(defaultOptions) // just in case the caller decides not to send anything
+```
