@@ -1,38 +1,39 @@
 ---
-title: Property Based Testing In JavaScript
+title: Property-based Testing In JavaScript
 mostRecent: true
 ---
 
-Property based testing, or generative testing, if you prefer, is quite popular in the functional programming world, but less so elsewhere. As Richard Minerich put it, on Twitter, earlier this year:
+Property-based testing, or generative testing, if you prefer, is quite popular in the functional programming world, but less so elsewhere. As Richard Minerich put it, on Twitter, earlier this year:
 
 ![Y THO](../static/images/propertytest.jpeg)
 
-There are quite a few articles on the interwebz that cover what property based testing is with some basic examples, this post serves to add to their numbers but, hopefully, goes a bit further with a "real world" example from something I worked on recently.
+There are quite a few articles on the interwebz that cover what property-based testing is with some basic examples, this post serves to add to their numbers but, hopefully, goes a bit further with a "real world" example from something I worked on recently.
 
 I'm going to make the assumption that if you're reading this, you are already familiar with unit testing; writing tests that exercise code to make sure it does what it should. However, as Djikstra said:
 
-> [T]esting is hopelessly inadequate...
-> [It] can be used very effectively to show the presence of bugs but never to show their absence.”
+> [ T ]esting is hopelessly inadequate...
+> [ It ] can be used very effectively to show the presence of bugs but never to show their absence.”
 
-The problems with testing are talked about at length in the classic paper Out Of The Tarpit:
+The problems with testing are talked about at length in the classic paper
+[Out Of The Tarpit](http://curtclifton.net/papers/MoseleyMarks06a.pdf):
 
 > The key problem with testing is that a test (of any kind) that uses one particular set of inputs tells you nothing at all about the behaviour of the system or component when it is given a different set of inputs. The huge number of different possible inputs usually rules out the possibility of testing them all, hence the unavoidable concern with testing will always be — have you performed the right tests?.
 
-Even in the case where do handle all of the scenarios, we can end up with more lines of test code than we have of actual, production, code. This is the problem that property based testing seeks to help with.
+Even in the case where do handle all of the scenarios, we can end up with more lines of test code than we have of actual, production, code. This is the problem that property-based testing seeks to help with.
 
-## What Is Property Based Testing
+## What Is Property-based Testing
 
-The basic idea of property based testing is this: you come up with a property, or properties, that a function holds,
+The basic idea of property-based testing is this: you come up with a property, or properties, that a function holds,
 then let the library generate random values and call the function. This process, calling a function with random
 values happens multiple times, typically the default is 100, ensures that the property defined holds for all calls.
-If it doesn't, the library "shrinks" the failure down to it's smallest form; a single test run that fails to satify
+If it doesn't, the library "shrinks" the failure down to the smallest form; a single test run that fails to satisfy
 that property.
 
-The idea orginated in Haskell in 1999 with the library QuickCheck and now has implementations in a slew of languages; including the language that will be used in this post: JavaScript.
+The idea originated in Haskell in 1999 with the library [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) and now has implementations in a slew of languages; including the language that will be used in this post: JavaScript.
 
 ## Defining Properties
 
-If we think back to basic arithematic, we remember that addition has the propertiest of identity, commutativity and associativty.
+If we think back to basic arithmetic, we remember that addition has the property of identity, commutativity, and associativity.
 
 #### Identity Property
 
@@ -78,11 +79,12 @@ true
 ```
 
 So how do you test this? Each of these properties needs to hold true for all numbers. To be really confident that these
-properties hold we would have to write A LOT of tests. This is where property based testing helps.
+properties hold we would have to write A LOT of tests. This is where property-based testing helps.
 
 ## Enter Fast-Check
 
-JavaScript has quite a few property based testing libraries, but I found `fast-check` to have the combination of an API
+JavaScript has quite a few property-based testing libraries, but I found
+[`fast-check`](https://github.com/dubzzz/fast-check) to have the combination of an API
 that I liked (looking at you `JSVerify`) and was still maintained (looking at you `TestCheck.js`).
 
 So, given that we've settled on using `fast-check` how would go about testing the properties above?
@@ -105,7 +107,7 @@ fc.check(prop)
 
 In each case we start by defining a property using the `property` function. We provide three arguments, this first tells
 `fast-check` to provide any arbitrary integer at each run, the second tells `fast-check` to provide a constant value. The final argument is a function that takes the values that `fast-check` provides. The two tests above are very
-similar but differ a bit because the identity for multipilcation is 1 where as it is 0 for addition, and, of course, the
+similar but differ a bit because the identity for multiplication is 1, whereas it is 0 for addition, and, of course, the
 operators are different.
 
 The output for each is similar, only differing in the `seed` value.
@@ -170,10 +172,10 @@ Here we can see that the test failed after one run and `fast-check` provides a c
 are added together the answer will not match our property. We expected any integer (`a`) plus `20` to equal `a` and that
 fails right away.
 
-Fast-check has a lot of what are called 'arbitraries', functions like `fc.integer` and `fc.constant`, that generate arbiraty
+Fast-check has a lot of what are called 'arbitraries', functions like `fc.integer` and `fc.constant`, that generate arbitrary
 values for each test run. These are just a few examples.
 
-These examples are pretty basic and defining properties can be difficult, particularly if we try to ascertain what mathmatical properties
+These examples are pretty basic and defining properties can be difficult, particularly if we try to ascertain what mathematical properties
 our function upholds. What if it doesn't have any?
 
 ## A More Real World Example
@@ -200,7 +202,7 @@ const optionsSchema = Joi.object({
 }).default(defaultOptions) // just in case
 ```
 
-Now we can use `fast-check` to check that different combination of booleans validate.
+Now we can use `fast-check` to check those different combinations of booleans validate.
 
 ``` javascript
 const options = fc.record({
@@ -218,7 +220,7 @@ const test = options => {
 fc.check(fc.property(options, test))
 ```
 
-`fast-check` has both `object` and `record` the former will generate an object with arbirtary keys,
+`fast-check` has both `object` and `record` the former will generate an object with arbitrary keys,
 the latter allows us to specify the keys the object must have. Since we care about the keys we create
 a record and specify the names of the keys and that `fast-check` should assign them boolean values. We
 also use the `withDeletedKeys` option so that `fast-check` may arbitrarily remove keys from our record
@@ -243,7 +245,7 @@ const test = options => {
 fc.check(fc.property(options, test))
 ```
 
-Here we use the `oneof` function to tell `fast-check` to choose between an integer, date, string, or null seperately
+Here we use the `oneof` function to tell `fast-check` to choose between an integer, date, string, or null separately
 at each run. This case, we removed the `withDeletedKeys` option so `fast-check` doesn't generate an empty record
 which will give us a valid response.
 
@@ -264,16 +266,13 @@ The only difference is that we changed from using `check` to `assert`. Both will
 a result object while `assert` returns nothing if the test passes and throws an exception if it fails.
 Since the return object isn't needed in this case, we used `assert`.
 
-### Summary
+## Summary
 
 We use different forms of testing to give us confidence that our code works as it should. However, testing with one
-set of inputs tells us nothing how our code will behave given a different inputs. Writing unit tests for all possibe
-inputs is an ardeous task, but the more scenarios we test the higher our confidence. Property test helps here by running
-our test(s) under mulipe scenarios against a property that our function holds. Alleviating the pain of having
+set of inputs tells us nothing about how our code will behave given different inputs. Writing unit tests for all possible
+inputs is an arduous task, but the more scenarios we test the higher our confidence. Property test helps here by running
+our test(s) under multiple scenarios against a property that our function holds. Alleviating the pain of having
 to write those tests ourselves.
 
-### Resources
-
-- [fast-check](https://github.com/dubzzz/fast-check)
-- [Examples](https://github.com/thunklife/fast-check-example)
-- [Out Of The Tarpit](http://curtclifton.net/papers/MoseleyMarks06a.pdf)
+_All examples from this post can be found at
+[https://github.com/thunklife/fast-check-example](https://github.com/thunklife/fast-check-example)_
