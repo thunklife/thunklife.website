@@ -176,7 +176,7 @@ values for each test run. These are just a few examples.
 These examples are pretty basic and defining properties can be difficult, particularly if we try to ascertain what mathmatical properties
 our function upholds. What if it doesn't have any?
 
-### A More Real World Example
+## A More Real World Example
 
 Likely, there is some sort of property that you function holds. In this case, taken from something I worked recently, that property
 was the validity of an object and it's properties.
@@ -186,16 +186,94 @@ can use a library like `joi` to specify the properties of out `options` object a
 
 ``` javascript
 const defaultOptions = {
-	foo: false,
-	bar: false,
-	baz: false,
-	qux: false
+  foo: false,
+  bar: false,
+  baz: false,
+  qux: false
 }
 
 const optionsSchema = Joi.object({
-	foo: Joi.boolean().default(false),
-	bar: Joi.boolean().default(false),
-	baz: Joi.boolean().default(false),
-	qux: Joi.boolean().default(false)
-}).default(defaultOptions) // just in case the caller decides not to send anything
+  foo: Joi.boolean().default(false),
+  bar: Joi.boolean().default(false),
+  baz: Joi.boolean().default(false),
+  qux: Joi.boolean().default(false)
+}).default(defaultOptions) // just in case
 ```
+
+Now we can use `fast-check` to check that different combination of booleans validate.
+
+``` javascript
+const options = fc.record({
+  foo: fc.boolean(),
+  bar: fc.boolean(),
+  baz: fc.boolean(),
+  qux: fc.boolean()
+}, {withDeletedKeys: true})
+
+const test = options => {
+  const {error} = optionsSchema.validate(options)
+  return error == null
+}
+
+fc.check(fc.property(options, test))
+```
+
+`fast-check` has both `object` and `record` the former will generate an object with arbirtary keys,
+the latter allows us to specify the keys the object must have. Since we care about the keys we create
+a record and specify the names of the keys and that `fast-check` should assign them boolean values. We
+also use the `withDeletedKeys` option so that `fast-check` may arbitrarily remove keys from our record
+at each run; since each option is optional.
+
+We can also use `fast-check` to test that invalid values generate an error.
+
+``` javascript
+const options = fc.record({
+  foo: fc.oneof(fc.integer(), fc.date(), fc.string(), fc.constant(null)),
+  bar: fc.oneof(fc.integer(), fc.date(), fc.string(), fc.constant(null)),
+  baz: fc.oneof(fc.integer(), fc.date(), fc.string(), fc.constant(null)),
+  qux: fc.oneof(fc.integer(), fc.date(), fc.string(), fc.constant(null))
+})
+
+const test = options => {
+  const {error} = optionsSchema.validate(options)
+  
+  return error != null
+}
+
+fc.check(fc.property(options, test))
+```
+
+Here we use the `oneof` function to tell `fast-check` to choose between an integer, date, string, or null seperately
+at each run. This case, we removed the `withDeletedKeys` option so `fast-check` doesn't generate an empty record
+which will give us a valid response.
+
+### Test Framework Integration
+
+`fast-check` integrates easily many different testing frameworks such as `mocha` and `jasmine`. In this case,
+we're going to use `jest`.
+
+``` javascript
+describe('schema tests', () => {
+    it('should not validate', () => {
+      fc.assert(fc.property(options, test))
+    })
+  })
+```
+
+The only difference is that we changed from using `check` to `assert`. Both will run the tests, but `check` will return
+a result object while `assert` returns nothing if the test passes and throws an exception if it fails.
+Since the return object isn't needed in this case, we used `assert`.
+
+### Summary
+
+We use different forms of testing to give us confidence that our code works as it should. However, testing with one
+set of inputs tells us nothing how our code will behave given a different inputs. Writing unit tests for all possibe
+inputs is an ardeous task, but the more scenarios we test the higher our confidence. Property test helps here by running
+our test(s) under mulipe scenarios against a property that our function holds. Alleviating the pain of having
+to write those tests ourselves.
+
+### Resources
+
+- [fast-check](https://github.com/dubzzz/fast-check)
+- [Examples](https://github.com/thunklife/fast-check-example)
+- [Out Of The Tarpit](http://curtclifton.net/papers/MoseleyMarks06a.pdf)
