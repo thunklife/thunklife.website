@@ -1,0 +1,29 @@
+{
+  "name": "thunklife.website",
+  "version": "2.0.0",
+  "description": "My static site",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/thunklife/thunklife.website.git"
+  },
+  "author": "Jesse Williamson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thunklife/thunklife.website/issues"
+  },
+  "homepage": "https://github.com/thunklife/thunklife.website#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0",
+    "@11ty/eleventy-img": "^3.0.0",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy-plugin-bundle": "^1.0.3",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "luxon": "^3.2.1",
+    "markdown-it-anchor": "^8.6.6"
+  }
+}

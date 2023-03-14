@@ -16,17 +16,16 @@
             <a href="/">thunklife</a>
           </div>
           <div class="links">
-            <a href="/blog.html" title="Posts"><i class="fa fa-file"></i>blog</a>
-            <a href="/talks.html" title="Talks"><i class="fa fa-quote-left"></i>talks</a>
-            <a href="/cv.html" title="CV"><i class="fa fa-address-card"></i>cv</a>
+            <a href="/journal" title="Posts"><i class="fa fa-file"></i>journal</a>
+            <a href="/photos" title="Posts"><i class="fa fa-camera"></i>photos</a>
+            <a href="/cv" title="CV"><i class="fa fa-address-card"></i>cv</a>
             <a href="https://twitter.com/thunk_life" title="Twitter" target="_blank"><i class="fa fa-twitter"></i>twitter</a>
             <a href="https://github.com/thunklife" title="Github" target="_blank"><i class="fa fa-github"></i>github</a>
-            <a href="https://flickr.com/photos/139190403@N04/" title="Github" target="_blank"><i class="fa fa-flickr"></i>flickr</a>
           </div>
         </nav>
       </header>
       <article id="main">
-        $body$
+	{{content | safe}}
       </article>
       <footer><i class="fa fa-hand-peace-o"></i></footer>
     </div>

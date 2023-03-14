@@ -4,3 +4,4 @@ _site
 .stack-work
 TAGS
 .DS_Store
+node_modules
