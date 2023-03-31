@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
-numberOfLatestPostsToShow: 5
+numberOfLatestPostsToShow: 2 
 eleventyNavigation:
 	key: Journal
 	order: 1
@@ -8,7 +8,7 @@ eleventyNavigation:
 
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h1>Journa</h1>
+<h1>Journal</h1>
 
 {% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
 {% set postslistCounter = postsCount %}
@@ -16,5 +16,5 @@ eleventyNavigation:
 
 {% set morePosts = postsCount - numberOfLatestPostsToShow %}
 {% if morePosts > 0 %}
-<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="/blog/">the archive</a>.</p>
+<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="/archive/">the archive</a>.</p>
 {% endif %}

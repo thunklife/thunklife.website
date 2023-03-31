@@ -1,5 +1,5 @@
+const { DateTime } = require("luxon");
 const markdownItAnchor = require("markdown-it-anchor");
-
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
@@ -7,9 +7,7 @@ const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 module.exports = function(eleventyConfig) {
-	eleventyConfig.addPassthroughCopy({
-		"./static/": "/",
-	});
+	eleventyConfig.addPassthroughCopy('./static/')
 
 	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg}");
 
