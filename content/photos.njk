@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+numberOfLatestPhotosToShow: 1 
+eleventyNavigation:
+	key: Photos
+	order: 2
+---
+
+{% set photoCount = collections.photos | length %}
+{% set latestPhotosCount = postsCount | min(numberOfLatestPhotosToShow) %}
+<h1>Journal</h1>
+
+{% set postslist = collections.photos | head(-1 * numberOfLatestPhotosToShow) %}
+{% set postslistCounter = postsCount %}
+{% include "photolist.njk" %}
+
+{% set morePhotos = photosCount - numberOfLatestPhotosToShow %}
+{% if morePhotos > 0 %}
+<p>{{ morePhotos }} more photo {% if morePosts != 1 %}s{% endif %} <a href="/photo-archive/">the archive</a>.</p>
+{% endif %}
