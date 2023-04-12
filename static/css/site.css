@@ -167,7 +167,21 @@ footer {
   color: #434c5e;
   font-size: 2rem;
   padding: 20px 0;
-  text-align: center; }
+  text-align: center;
+}
+
+footer.img-meta {
+  font-family: open_sanslight;
+  color: #434c5e;
+  font-size: 1rem;
+  text-align: right;
+  color: #5E81AC;
+  font-style: italic;
+}
+
+footer.img-meta p {
+  margin: 0;
+}
 
 .me {
   display: flex;
@@ -276,4 +290,15 @@ footer {
 .talks article:last-of-type{
   margin-bottom: 0;
   border-bottom: none;
+}
+
+.frame {
+  display: flex;
+  align-items: center;
+  border: 10px solid #BF616A;
+  border-radius: 2px;
+}
+
+.frame img {
+
 }

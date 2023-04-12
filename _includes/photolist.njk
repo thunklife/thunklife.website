@@ -1,0 +1,8 @@
+<ul>
+{%- for photo in photoslist | reverse -%}
+  <li>
+    <a href="{{ photo.url }}" class="photolist-link">{% if photo.data.title %}{{ photo.data.title }}{% else %}<code>{{ photo.url }}</code>{% endif %}</a>
+    <time datetime="{{ photo.date | htmlDateString }}">{{ photo.date | readableDate("DD") }}</time>
+	</li>
+{%- endfor -%}
+</ul>
