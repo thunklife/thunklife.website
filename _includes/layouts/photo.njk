@@ -5,7 +5,7 @@ layout: layouts/base.njk
 <h1>{{title}}</h1>
 <article class="photo-content">
 	<div class="frame">
-		{{content | safe}}
+		<img webc:is="eleventy-image" width=700 src="/static/img/{{file_name}}" alt="Japanese Friendship Garden">
 	</div>
 	<footer class="img-meta">
 		<p>{{description}}</p>

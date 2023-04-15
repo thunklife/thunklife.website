@@ -1,12 +1,12 @@
 ---
 layout: layouts/base.njk
-numberOfLatestPhotosToShow: 1 
+numberOfLatestPhotosToShow: 30
 eleventyNavigation:
 	key: Photos
 	order: 2
 ---
 
-{% set photoCount = collections.photos | length %}
+{% set photosCount = collections.photos | length %}
 {% set latestPhotosCount = photosCount | min(numberOfLatestPhotosToShow) %}
 <h1>Photos</h1>
 

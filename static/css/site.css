@@ -292,13 +292,14 @@ footer.img-meta p {
   border-bottom: none;
 }
 
-.frame {
-  display: flex;
-  align-items: center;
-  border: 10px solid #BF616A;
-  border-radius: 2px;
+.photo-list-item {
+  margin-bottom: 24px;
+  border-radius: 3px;
+  overflow: hidden;
 }
 
-.frame img {
-
+.photo-list-item img {
+  width: 100%;
+  display: block;
+  height: auto;
 }
