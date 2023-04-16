@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
-numberOfLatestPhotosToShow: 30
+numberOfLatestPhotosToShow: 10
 eleventyNavigation:
 	key: Photos
 	order: 2
@@ -8,7 +8,7 @@ eleventyNavigation:
 
 {% set photosCount = collections.photos | length %}
 {% set latestPhotosCount = photosCount | min(numberOfLatestPhotosToShow) %}
-<h1>Photos</h1>
+<h1>Recently Added Photos</h1>
 
 {% set photoslist = collections.photos | head(-1 * numberOfLatestPhotosToShow) %}
 {% set photoslistCounter = photosCount %}
@@ -16,5 +16,5 @@ eleventyNavigation:
 
 {% set morephotos = photosCount - numberOfLatestPhotosToShow %}
 {% if morephotos > 0 %}
-<p>{{ morephotos }} more photo {% if morephotos != 1 %}s{% endif %} <a href="/photo-archive/">the archive</a>.</p>
+<p>{{ morephotos }} more photo{% if morephotos != 1 %}s{% endif %} <a href="/photo-archive/">the archive</a>.</p>
 {% endif %}

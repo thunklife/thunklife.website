@@ -4,7 +4,10 @@
   "description": "My static site",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node node_modules/.bin/eleventy --serve",
+    "processPhotos": "node make-photo-posts.js",
+    "processPhotos:debug": "node --inspect-brk make-photo-posts.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +31,8 @@
   },
   "dependencies": {
     "@11ty/eleventy-plugin-webc": "^0.11.0",
+    "exif-parser": "^0.1.12",
+    "fs-extra": "^11.1.1",
     "macy": "^2.5.1"
   }
 }

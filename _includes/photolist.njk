@@ -1,6 +1,6 @@
 <div id="macy-container">
 {%- for photo in photoslist | reverse -%}
-  <div class='photo-list-item'>
+  <div class='photo'>
 	<a href="{{ photo.url }}" class="photolist-link">
 		<img webc:is="eleventy-image" src="../static/img/{{photo.data.file_name}}" alt="Japanese Friendship Garden">
 	</a>

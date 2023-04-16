@@ -205,22 +205,18 @@ footer.img-meta p {
   width: 65%;
 }
 
-
 .post-list {
+  padding:  20px 0 20px 0
+}
+.post-list > li {
   list-style-type: none;
-  margin: 0px;
+  margin: 0px 0px 20px 0px;
   padding: 0px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
-.post-list li a {
-  display: inline-block;
-  width: 100%;
-}
-
-.post-list .fa-star {
-  margin-right: 10px;
-  color: #ebcb8b
-}
 
 .post-title {
   margin-bottom: 40px;
@@ -271,35 +267,38 @@ footer.img-meta p {
   display: inline-block;
 }
 
-.talks h2 {
-  padding: 0;
-}
+/* .photo-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+} */
 
-.talks .meta p {
-  font-size: 12px;
-  margin: 0;
-  line-height: auto;
-  color: #d08770;
-}
-
-.talks article{
-  margin-bottom: 10px;
-  border-bottom: 1px solid #eceff4;
-}
-
-.talks article:last-of-type{
-  margin-bottom: 0;
-  border-bottom: none;
-}
-
-.photo-list-item {
-  margin-bottom: 24px;
+.photo {
   border-radius: 3px;
   overflow: hidden;
+  border: 1px solid #ECEFF4;
 }
 
-.photo-list-item img {
+.photo img {
   width: 100%;
   display: block;
   height: auto;
+}
+#macy-container {
+  margin: 20px 0px 0px 0px;
+}
+#macy-container .photo {
+  opacity: 70%;
+}
+#macy-container .photo:hover {
+  border-color: #BF616A
+}
+
+#macy-container .photo:hover {
+  opacity: 100%;
+}
+
+#main > h1 {
+  text-transform: capitalize;
+  margin: 0;
 }

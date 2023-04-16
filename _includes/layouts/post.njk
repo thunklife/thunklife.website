@@ -3,6 +3,9 @@ layout: layouts/base.njk
 ---
 
 <h1>{{title}}</h1>
+<h6>
+	<time datetime="{{ date | htmlDateString }}">{{ date | readableDate("DD") }}</time>
+</h6>
 <article class="post-content">
 	{{content | safe}}
 </article>
