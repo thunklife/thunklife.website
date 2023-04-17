@@ -1,15 +1,23 @@
+/**
+ * Create new photo posts from images in the `new-img` directory using its EXIF data
+ * Once the new post is created move the phot to `static/img`
+ */
+
 const ExifParser = require('exif-parser');
 const fs = require('fs-extra');
 const path = require('path')
 
-const photosDirPath = path.join(process.cwd(), 'static', 'img');
-const dirContents = fs.readdirSync(photosDirPath);
+const sourceDirPath = path.join(process.cwd(), 'new-img');
+const targetDirPath = path.join(process.cwd(), 'static', 'img')
+const dirContents = fs.readdirSync(sourceDirPath);
+
 dirContents.forEach(item => {
-	const photoPath = path.join(photosDirPath, item);
-	const stats = fs.statSync(photoPath);
+	// create the source and dest paths for the image
+	const sourcePhotoPath = path.join(sourceDirPath, item);
+	const targetPhotoPath = path.join(targetDirPath, item)
+	const stats = fs.statSync(sourcePhotoPath);
 	const {birthtime} = stats;
-	const file = fs.readFileSync(photoPath)
-	const exif = ExifParser
+	const file = fs.readFileSync(sourcePhotoPath);
 	const parser = ExifParser.create(file);
 
 	parser.enableBinaryFields(true);
@@ -18,7 +26,7 @@ dirContents.forEach(item => {
 	parser.enableReturnTags(true);
 	
 	const img = parser.parse();
-	const tags = img.tags
+	const tags = img.tags;
 	const meta = {
 		camera: `${tags.Make} ${tags.Model}`,
 		make: tags.Make,
@@ -28,14 +36,6 @@ dirContents.forEach(item => {
 		iso: tags.ISO,
 		created: birthtime
 	}
-	/**
-	 * 
-		---
-		title: Anaheim Convention Center
-		date: 2023-04-01
-		file_name: anaheim-convention-center.jpg
-		---
-	 */
 	const parsedPath = path.parse(item);
 	const fileName = parsedPath.base;
 	const imgTitle = parsedPath.name.replaceAll('-', ' ');
@@ -43,4 +43,5 @@ dirContents.forEach(item => {
 	const outPath = `${outDir}.njk`;
 	const template = `---\ntitle: ${imgTitle}\nfile_name: ${fileName}\ncreated: ${meta.created}\ncamera: ${meta.camera}\nlens: ${meta.lens}\niso: ${meta.iso}\nfstop: ${meta.fStop}\n---`;
 	fs.writeFileSync(outPath, template)
+	fs.moveSync(sourcePhotoPath, targetPhotoPath)
 });
