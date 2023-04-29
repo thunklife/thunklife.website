@@ -1,0 +1,304 @@
+@font-face {
+  font-family: 'open_sansregular';
+  src: url("../fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'open_sanslight';
+  src: url("../fonts/opensans-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'open_sansextrabold';
+  src: url("../fonts/opensans-extrabold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'open_sanssemibold';
+  src:  url("../fonts/opensans-semibold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'fira_coderegular';
+  src:  url("../fonts/FiraCode-Regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  font-family: open_sansregular;
+  background-color: #2e3440;
+  color: #eceff4;
+}
+
+header {
+  overflow: hidden;
+  padding-top: 20px; 
+  padding-bottom: 40px;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .links, 
+nav .brand {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+}
+
+nav .links {
+  flex-direction: row;
+} 
+
+nav .links a {
+  padding: 5px 15px;
+  font-size: 1.5rem; 
+  display: flex;
+  flex-direction: column;
+  font-size: .95rem;
+  text-align: center;
+}
+
+nav .links i:hover {
+  text-decoration: none;
+}
+
+header img {
+  float: left;
+}
+
+header .container {
+  overflow: hidden;
+}
+
+a {
+  color: #81a1c1;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #8fbcbb
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0 0 20px 40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  padding: 0 0 10px 0;
+  line-height: 2.33rem;
+  color: #b48ead
+}
+
+h1 {
+  font-family: open_sansextrabold;
+  margin-top: 0;
+}
+
+h2 {
+  font-family: open_sanssemibold;
+}
+
+h3 {
+  font-family: open_sansregular;
+  font-style: italic;
+}
+
+blockquote {
+  padding: 10px;
+  margin: 20px 0 20px 20px;
+  border-left: 1px solid #88c0d0;
+  color: #a3be8c;
+}
+
+blockquote p {
+  margin: 0;
+}
+
+li {
+  line-height: 1.65rem;
+  padding: 5px;
+  list-style-type: none;
+}
+
+p {
+  margin: 0px 0px 20px 0;
+  line-height: 1.65rem;
+}
+
+p code {
+  margin: 0 5px;
+  padding: 2px 5px 0 5px;
+  background: #e5e9f0;
+  color: #4c566a;
+  border-radius: 3px;
+  font-size: .8rem;
+  white-space: nowrap;
+  font-family: fira_coderegular;
+}
+
+.figure img {
+  width: 100%;
+  border-radius: 3px;
+}
+
+.figure .caption {
+  font-size: 10px;
+  text-align: right;
+}
+
+footer {
+  font-family: open_sanslight;
+  color: #434c5e;
+  font-size: 2rem;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer.img-meta {
+  font-family: open_sanslight;
+  color: #434c5e;
+  font-size: 1rem;
+  text-align: right;
+  color: #5E81AC;
+  font-style: italic;
+}
+
+footer.img-meta p {
+  margin: 0;
+}
+
+.me {
+  display: flex;
+}
+
+.head-photo-container {
+  width: 30%;
+}
+
+.head-photo{
+  border-radius: 50%;
+  width: 100%;
+  border: 5px solid #b48ead;
+}
+
+.about {
+  font-family: open_sanslight;
+  font-size: 32px;
+  padding-left: 20px;
+  text-align: right;
+  width: 65%;
+}
+
+.post-list {
+  padding:  20px 0 20px 0
+}
+.post-list > li {
+  list-style-type: none;
+  margin: 0px 0px 20px 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+
+.post-title {
+  margin-bottom: 40px;
+}
+
+.container {
+  max-width: 800px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+.cv h1{
+  margin-bottom: 0;
+  padding-bottom: 5px;
+}
+
+.cv .email{
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.cv .section{
+  margin: 20px 0;
+}
+
+.cv .meta{
+  position: absolute;
+  display: inline-block;
+  color: #d08770;
+}
+
+.cv .meta p{
+  margin: 0;
+}
+
+.cv .description{
+  position: relative;
+  display: inline-block;
+  width: 65%;
+  left: 33%;
+}
+
+.cv .bingo{
+  font-size:.8rem;
+  line-height: 1.5;
+  color: #ebcb8b;
+  font-style: italic;
+  display: inline-block;
+}
+
+.photo-content .meta {
+  text-align: right;
+  font-size: 10px;
+  color: #B48EAD;
+}
+
+.photo {
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #ECEFF4;
+}
+
+.photo img {
+  width: 100%;
+  display: block;
+  height: auto;
+}
+#macy-container {
+  margin: 20px 0px 0px 0px;
+}
+#macy-container .photo {
+  opacity: 70%;
+}
+#macy-container .photo:hover {
+  border-color: #BF616A
+}
+
+#macy-container .photo:hover {
+  opacity: 100%;
+}
+
+#main > h1 {
+  text-transform: capitalize;
+  margin: 0;
+}
