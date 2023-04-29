@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node node_modules/.bin/eleventy --serve",
-    "build": "node node_modules/.bin/eleventy --build",
-    "processPhotos": "node make-photo-posts.js"
+    "build": "node node_modules/.bin/eleventy",
+    "processPhotos": "node make-photo-posts.js",
+    "publish": "node publish.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "@11ty/eleventy-plugin-bundle": "^1.0.3",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
+    "gh-pages": "^5.0.0",
     "luxon": "^3.2.1",
     "markdown-it-anchor": "^8.6.6"
   },
