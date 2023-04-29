@@ -33,9 +33,9 @@ dirContents.forEach(item => {
 		model: tags.Model,
 		fStop: tags.FNumber,
 		lens: `${tags.LensMake} ${tags.LensModel}`,
-		iso: tags.ISO,
-		created: birthtime
+		iso: tags.ISO
 	}
+
 	const parsedPath = path.parse(item);
 	const fileName = parsedPath.base;
 	const imgTitle = parsedPath.name.replaceAll('-', ' ');

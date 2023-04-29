@@ -267,11 +267,11 @@ footer.img-meta p {
   display: inline-block;
 }
 
-/* .photo-content {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-} */
+.photo-content .meta {
+  text-align: right;
+  font-size: 10px;
+  color: #B48EAD;
+}
 
 .photo {
   border-radius: 3px;

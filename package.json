@@ -8,6 +8,7 @@
     "start": "node node_modules/.bin/eleventy --serve",
     "build": "node node_modules/.bin/eleventy",
     "processPhotos": "node make-photo-posts.js",
+    "processPhotos:debug": "node --inspect-brk make-photo-posts.js",
     "publish": "node publish.js"
   },
   "repository": {
