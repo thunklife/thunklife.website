@@ -3,11 +3,33 @@ layout: layouts/base.njk
 ---
 
 <h1>{{title}}</h1>
-	<article class="photo-content">
-		<figure class="photo">
-			<img webc:is="eleventy-image" width=700 src="/static/img/{{file_name}}">
-		</figure>
-		<p class="meta">
-			{{camera}} • {{lens}} • ISO {{iso}} • F/{{fstop}}
-		</p>
-	</article>
+<article class="photo-content">
+	<figure class="photo">
+		<img webc:is="eleventy-image" width=700 src="/static/img/{{file_name}}">
+	</figure>
+	<p class="meta">
+		{{camera}} • {{lens}} • ISO {{iso}} • F/{{fstop}}
+	</p>
+	<footer class='next-prev'>
+		{% set previousPhoto = collections.photos | getPreviousCollectionItem %}
+		{% set nextPhoto = collections.photos | getNextCollectionItem %}
+		<ul>
+			<li>
+				{% if previousPhoto %}
+					<a href="{{ previousPhoto.url }}">
+						<i class="fa fa-chevron-left"></i>
+						<span>{{previousPhoto.data.title}}</span>
+					</a>
+				{% endif %}
+			</li>
+			<li>
+				{% if nextPhoto %}
+					<a href="{{ nextPhoto.url }}">
+						<span>{{nextPhoto.data.title}}</span>
+						<i class="fa fa-chevron-right"></i>
+					</a>
+				{% endif %}
+			</li>
+		</ul>
+	</footer>
+</article>

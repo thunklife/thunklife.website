@@ -8,4 +8,27 @@ layout: layouts/base.njk
 </h6>
 <article class="post-content">
 	{{content | safe}}
+
+	<footer class='next-prev'>
+		{% set previousPhoto = collections.posts | getPreviousCollectionItem %}
+		{% set nextPhoto = collections.posts | getNextCollectionItem %}
+		<ul>
+			<li>
+				{% if previousPhoto %}
+					<a href="{{ previousPhoto.url }}">
+						<i class="fa fa-chevron-left"></i>
+						<span>{{previousPhoto.data.title}}</span>
+					</a>
+				{% endif %}
+			</li>
+			<li>
+				{% if nextPhoto %}
+					<a href="{{ nextPhoto.url }}">
+						<span>{{nextPhoto.data.title}}</span>
+						<i class="fa fa-chevron-right"></i>
+					</a>
+				{% endif %}
+			</li>
+		</ul>
+	</footer>
 </article>
