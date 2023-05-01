@@ -302,3 +302,36 @@ footer.img-meta p {
   text-transform: capitalize;
   margin: 0;
 }
+.next-prev {
+  padding: 0px;
+}
+.next-prev ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 15px;
+  padding: 0px 0px 20px 0px;
+  text-transform: capitalize;
+}
+
+.next-prev li {
+  width: 50%;
+  text-align: left;
+}
+
+.next-prev li:last-child {
+  text-align: right;
+}
+
+.next-prev li span {
+  display: none;
+}
+.next-prev li:hover span {
+  display: inline;
+  padding: 0px 10px;
+  color: #ebcb8b;
+}
+
+.next-prev li a{
+  display: block;
+}
